@@ -1,7 +1,7 @@
 Aircraft Game
 =============
 
-Very small Aircraf game written in C
+Very small aircraft game written in C
 
 Requirements
 ------------

@@ -3,12 +3,15 @@
 
 static SDL_Surface *missile_surface = NULL;
 
-void initMissileContext(){
+int initMissileContext(){
 	missile_surface = getSurfaceTransparentFromImage("data/missile.bmp");
 	
 	if(!missile_surface){
 		printf("Could not load data/missile.bmp\n");
+		return 0;
 	}
+
+	return 1;
 }
 
 void clearMissileContext(){

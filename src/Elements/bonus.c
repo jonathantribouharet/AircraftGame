@@ -6,17 +6,28 @@ static SDL_Surface *bonus_health_surface = NULL;
 static SDL_Surface *bonus_weapon_upgrade_surface = NULL;
 static SDL_Surface *bonus_bomb_surface = NULL;
 
-void initBonusContext(){
+int initBonusContext(){
 	bonus_health_surface = getSurfaceTransparentFromImage("data/bonus_health_surface.jpg");
 	bonus_weapon_upgrade_surface = getSurfaceTransparentFromImage("data/bonus_weapon_upgrade_surface.jpg");
 	bonus_bomb_surface = getSurfaceTransparentFromImage("data/bonus_bomb.png");
 	
 	if(!bonus_health_surface){
 		printf("Could not load data/bonus_health_surface.jpg\n");
+		return 0;
 	}
 	if(!bonus_weapon_upgrade_surface){
 		printf("Could not load data/bonus_weapon_upgrade_surface.jpg\n");	
+		SDL_FreeSurface(bonus_health_surface);	
+		return 0;
 	}
+	if(!bonus_bomb_surface){
+		printf("Could not load data/bonus_bomb.png\n");	
+		SDL_FreeSurface(bonus_health_surface);	
+		SDL_FreeSurface(bonus_weapon_upgrade_surface);	
+		return 0;
+	}
+
+	return 1;
 }
 
 void clearBonusContext(){

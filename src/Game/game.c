@@ -14,11 +14,14 @@ int play(){
 	SDL_Event event;
     GameContext context;
     
-    initContext(&context);
+    if(!initContext(&context)){
+    	return 0;
+    }
+    
 	next_time = SDL_GetTicks() + TICK_INTERVAL;
 
     while(context.active){		
-    	if(SDL_PollEvent(&event) && event.type == SDL_QUIT){
+    	if(SDL_PollEvent(&event) == 1 && event.type == SDL_QUIT){
     		closeContext(&context);
 			return 0;	
 		}

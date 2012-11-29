@@ -35,7 +35,7 @@ typedef struct GameContext{
 	int last_bonus;
 }GameContext;
 
-void initContext(GameContext *);
+int initContext(GameContext *);
 void closeContext(GameContext *);
 void processEvent(GameContext *);
 

@@ -7,23 +7,30 @@ find_package(SDL_ttf REQUIRED)
 
 if(APPLE)
 	message(STATUS "Mac OS detected")
-	message(STATUS "Use clang compiler")
-
-	set(CMAKE_C_FLAGS "-O3 -Wall")
-	#set(CMAKE_C_FLAGS "-Wall")
 
 	include_directories("/System/Library/Frameworks/SDL.framework/headers"
-					    "/System/Library/Frameworks/SDL_ttf.framework/headers"
-					    "/System/Library/Frameworks/SDL_image.framework/headers")
+						"/System/Library/Frameworks/SDL_image.framework/headers"
+					    "/System/Library/Frameworks/SDL_ttf.framework/headers")
 
 	file(GLOB_RECURSE sources *.c *.m)
 else()
-	message(STATUS "Use gcc compiler")
+	message(STATUS "Linux detected")
 
-	set(CMAKE_C_FLAGS "-O3 -Wall -s")
-	#set(CMAKE_C_FLAGS "-Wall")
+	include_directories("/usr/include/SDL")
 
 	file(GLOB_RECURSE sources *.c)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCC)
+	message(STATUS "Use gcc compiler")
+
+	set(CMAKE_C_FLAGS "-Wall -O3 -std=c99 -s")
+	#set(CMAKE_C_FLAGS "-Wall -DDEBUG -std=c99 ")
+else()
+	message(STATUS "Use clang compiler")
+
+	set(CMAKE_C_FLAGS "-Wall -O3")
+	#set(CMAKE_C_FLAGS "-Wall -DDEBUG")
 endif()
 
 include_directories(.)

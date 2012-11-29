@@ -8,7 +8,11 @@ static const float BONUS_DELAY = 8000;
 static void refreshAircraftScore(GameContext *context);
 static void processCollisions(GameContext *context);
 
-void initContext(GameContext *context){
+int initContext(GameContext *context){
+	if(!(initAircraftContext() && initBonusContext() && initMissileContext())){
+		return 0;
+	}
+
 	context->active = 1;
 	context->keysstate = SDL_GetKeyState(NULL);
 		
@@ -33,11 +37,9 @@ void initContext(GameContext *context){
 	context->label_score.surface = getSurfaceFromText("");
 	refreshAircraftScore(context);
 	
-	initAircraftContext();
-	initBonusContext();
-	initMissileContext();
-
 	initAircraft(&context->aircraft);
+
+	return 1;
 }
 
 void closeContext(GameContext *context){
@@ -58,7 +60,7 @@ void processEvent(GameContext *context){
 	int i;
 	
 	//Update keysstate
-	SDL_PumpEvents();
+	// SDL_PumpEvents(); //call by SDL_PollEvent
 	
 	if(context->keysstate[SDLK_ESCAPE]){
 		context->active = 0;

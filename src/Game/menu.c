@@ -3,7 +3,7 @@
 #include "game.h"
 
 enum { MENU_PLAY, MENU_QUIT };
-static const int MENUS_SIZE = 2;
+#define MENUS_SIZE 2
 
 static const int ARROW_OFFSET_X = 20;
 static const int MENU_OFFSET_Y = 80;

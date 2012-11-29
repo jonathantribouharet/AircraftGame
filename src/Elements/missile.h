@@ -16,7 +16,7 @@ typedef struct{
 	SDL_Surface *surface;
 }Missile;
 
-void initMissileContext();
+int initMissileContext();
 void clearMissileContext();
 
 void moveMissiles(Missile **, int *);

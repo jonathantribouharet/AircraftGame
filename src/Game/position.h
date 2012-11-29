@@ -9,6 +9,6 @@ typedef struct{
 }Position;
 
 int isOverlap(const Position *, const SDL_Surface *, const Position *, const SDL_Surface *);
-SDL_Rect *getSDLRectFromPosition(const Position *); //Utiliser uniquement pour l'affichage (SDL_BlitSurface)
+SDL_Rect *getSDLRectFromPosition(const Position *);
 
 #endif

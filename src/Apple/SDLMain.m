@@ -10,6 +10,8 @@
 #include <sys/param.h> /* for MAXPATHLEN */
 #include <unistd.h>
 
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation" //Added by me
+
 /* For some reaon, Apple removed setAppleMenu from the headers in 10.4,
  but the method still is there and works. To avoid warnings, we declare
  it ourselves here. */
@@ -69,7 +71,6 @@ static NSString *getApplicationName(void)
 
 @implementation NSApplication (SDLApplication)
 /* Invoked from the Quit menu item */
-#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation" //Added by me
 - (void)terminate:(id)sender
 {
     /* Post a SDL_QUIT event */

@@ -3,7 +3,7 @@
 
 #include "SDL.h"
 
-void SDLWrapperInit();
+int SDLWrapperInit();
 void SDLWrapperQuit();
 
 void clearScreen();

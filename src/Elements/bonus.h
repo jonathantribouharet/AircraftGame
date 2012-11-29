@@ -1,7 +1,7 @@
 #ifndef _BONUS_H_
 #define _BONUS_H_
 
-#include <SDL/SDL.h>
+#include "SDL.h"
 
 #include "position.h"
 
@@ -18,7 +18,7 @@ typedef struct{
 	int type;
 }Bonus;
 
-void initBonusContext();
+int initBonusContext();
 void clearBonusContext();
 
 void moveBonus(Bonus **, int *);

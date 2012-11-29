@@ -24,7 +24,7 @@ typedef struct{
 	float missile_delay;
 }Aircraft;
 
-void initAircraftContext();
+int initAircraftContext();
 void clearAircraftContext();
 
 void moveAircraft(struct GameContext *context);

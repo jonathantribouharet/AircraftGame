@@ -1,9 +1,12 @@
-#include "SDL_main.h"
 #include "sdl_wrapper.h"
 #include "menu.h"
 
- int SDL_main(int argc, char *argv[]){
-	SDLWrapperInit();
+int main(int argc, char *argv[]){
+
+	if(!SDLWrapperInit()){
+		return EXIT_FAILURE;
+	}
+	
 	menu();
 	SDLWrapperQuit();
 	

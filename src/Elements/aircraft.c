@@ -20,15 +20,18 @@ static float ENEMY_MISSILE_COUNT;
 static float ENEMY_MISSILE_DELAY;
 static float ENEMY_UPGRADE_DELAY;
 
-void initAircraftContext(){
+int initAircraftContext(){
 	aircraft_surface = getSurfaceTransparentFromImage("data/avion.bmp");
 	enemy_surface = getSurfaceTransparentFromImage("data/ennemi.bmp");	
 	
 	if(!aircraft_surface){
 		printf("Could not load data/avion.bmp\n");
+		return 0;
 	}	
 	if(!enemy_surface){
 		printf("Could not load data/ennemi.bmp\n");
+		SDL_FreeSurface(aircraft_surface);
+		return 0;
 	}	
 
 	AIRCRAFT_HP = 100;
@@ -44,6 +47,8 @@ void initAircraftContext(){
 	ENEMY_MISSILE_COUNT = 2;
 	ENEMY_MISSILE_DELAY = 1800;
 	ENEMY_UPGRADE_DELAY = 20000;
+
+	return 1;
 }
 
 void clearAircraftContext(){

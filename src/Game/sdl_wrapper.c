@@ -7,17 +7,36 @@
 static SDL_Surface *screen = NULL;
 static TTF_Font *font = NULL;
 
-void SDLWrapperInit(){
+int SDLWrapperInit(){
 	LOG_DEBUG("Initialize SDL");
 
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_DOUBLEBUF);	
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_DOUBLEBUF) == -1){
+		LOG_DEBUG("SDL_Init failed");
+		return 0;
+	}
+
 	SDL_EnableUNICODE(1);
-	TTF_Init();
+	
+	if(TTF_Init() == -1){
+		LOG_DEBUG("TTF_Init failed");
+		return 0;
+	}
 	
 	screen = SDL_SetVideoMode(getScreenWidth(), getScreenHeight(), 32, SDL_SWSURFACE);
+	if(!screen){
+		LOG_DEBUG("SDL_SetVideoMode failed");
+		return 0;
+	}
+
 	SDL_WM_SetCaption("Aircraft Game", "Aircraft Game");
-	
 	font = TTF_OpenFont("data/menu_font.ttf", 40);
+
+	if(!font){
+		printf("Cannot load data/menu_font.ttf\n");
+		return 0;
+	}
+
+	return 1;
 }
 
 void SDLWrapperQuit(){
