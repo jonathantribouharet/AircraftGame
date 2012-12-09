@@ -43,8 +43,8 @@ void SDLWrapperQuit(){
 	LOG_DEBUG("Quit SDL");
 
 	TTF_CloseFont(font);
-	SDL_Quit();
 	TTF_Quit();
+	SDL_Quit();
 }
 
 void clearScreen(){
