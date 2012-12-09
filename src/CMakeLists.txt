@@ -8,9 +8,9 @@ find_package(SDL_ttf REQUIRED)
 if(APPLE)
 	message(STATUS "Mac OS detected")
 
-	include_directories("/System/Library/Frameworks/SDL.framework/headers"
-						"/System/Library/Frameworks/SDL_image.framework/headers"
-					    "/System/Library/Frameworks/SDL_ttf.framework/headers")
+	include_directories("/Library/Frameworks/SDL.framework/headers"
+						"/Library/Frameworks/SDL_image.framework/headers"
+					    "/Library/Frameworks/SDL_ttf.framework/headers")
 
 	file(GLOB_RECURSE sources *.c *.m)
 else()
