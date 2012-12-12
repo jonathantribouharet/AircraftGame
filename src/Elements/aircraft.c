@@ -171,3 +171,10 @@ void destroyAircraft(Aircraft **aircrafts, int *size, int index){
 	free(*aircrafts);
 	*aircrafts = new_aircrafts;	
 }
+
+void destroyAllAircrafts(Aircraft **aircrafts, int *size){
+	free(*aircrafts);
+	(*size) = 0;
+
+	*aircrafts = calloc(1, sizeof(Aircraft));
+}

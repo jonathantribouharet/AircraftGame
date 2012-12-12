@@ -58,15 +58,15 @@ static void displayGameOver(){
 }
 
 static void synchronize(){
-    Uint32 now = SDL_GetTicks();
-    Uint32 offset = 0;
+	Uint32 now = SDL_GetTicks();
+	Uint32 offset = 0;
 
-    if(next_time > now){
-    	offset = next_time - now;
-    }
+	if(next_time > now){
+		offset = next_time - now;
+	}
 
 	SDL_Delay(offset);
-    next_time += TICK_INTERVAL;
+	next_time += TICK_INTERVAL;
 }
 
 static void displaySurfaces(GameContext *context){

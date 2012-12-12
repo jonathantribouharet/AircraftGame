@@ -9,7 +9,7 @@
 #include "missile.h"
 #include "bonus.h"
 
-typedef struct GameContext{
+typedef struct{
 	int active;
 	Uint8 *keysstate;
 		

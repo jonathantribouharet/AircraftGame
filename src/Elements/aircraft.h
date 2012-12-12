@@ -33,5 +33,6 @@ void moveEnemies(Aircraft **, int *);
 void initAircraft(Aircraft *);
 void createEnemy(Aircraft **, int *);
 void destroyAircraft(Aircraft **, int *, int);
+void destroyAllAircrafts(Aircraft **, int *);
 
 #endif

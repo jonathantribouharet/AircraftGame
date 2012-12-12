@@ -2,7 +2,7 @@
 #include "menu.h"
 
 int main(int argc, char *argv[]){
-
+	
 	if(!SDLWrapperInit()){
 		return EXIT_FAILURE;
 	}

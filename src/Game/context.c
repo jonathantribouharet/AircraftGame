@@ -8,6 +8,10 @@ static const float BONUS_DELAY = 8000;
 static void refreshAircraftScore(GameContext *context);
 static void processCollisions(GameContext *context);
 
+static int processCollisionsEnemies(GameContext *context);
+static int processCollisionsEnemieMissiles(GameContext *context);
+static int processCollisionsBonuses(GameContext *context);
+
 int initContext(GameContext *context){
 	if(!(initAircraftContext() && initBonusContext() && initMissileContext())){
 		return 0;
@@ -125,9 +129,11 @@ static void refreshAircraftScore(GameContext *context){
 }
 
 static void processCollisions(GameContext *context){
-	int i, j;
+	processCollisionsEnemies(context) && processCollisionsEnemieMissiles(context) && processCollisionsBonuses(context);
+}
 
-	for(i = 0; i < context->enemies_size; ++i){
+static int processCollisionsEnemies(GameContext *context){
+	for(int i = 0; i < context->enemies_size; ++i){
 		if(isOverlap(&context->aircraft.position, context->aircraft.surface, &context->enemies[i].position, context->enemies[i].surface)){
 			context->score++;
 			context->aircraft.hp -= context->enemies[i].hp / 5;
@@ -137,13 +143,13 @@ static void processCollisions(GameContext *context){
 			if(context->aircraft.hp <= 0){
 				context->aircraft.hp = 0;
 				context->active = 0;
-				return;
+				return 0;
 			}
 
 			continue;
 		}
-			
-		for(j = 0; j < context->aircraft_missiles_size; ++j){				
+		
+		for(int j = 0; j < context->aircraft_missiles_size; ++j){				
 			if(isOverlap(&context->aircraft_missiles[j].position, context->aircraft_missiles[j].surface, &context->enemies[i].position, context->enemies[i].surface)){
 				context->enemies[i].hp -= context->aircraft_missiles[j].damage;
 				destroyMissile(&context->aircraft_missiles, &context->aircraft_missiles_size, j);
@@ -157,9 +163,12 @@ static void processCollisions(GameContext *context){
 			}
 		}
 	}	
-	
-	
-	for(i = 0; i < context->enemy_missiles_size; ++i){
+
+	return 1;
+}
+
+static int processCollisionsEnemieMissiles(GameContext *context){
+	for(int i = 0; i < context->enemy_missiles_size; ++i){
 		if(isOverlap(&context->enemy_missiles[i].position, context->enemy_missiles[i].surface, &context->aircraft.position, context->aircraft.surface)){
 			context->aircraft.hp -= context->enemy_missiles[i].damage;
 			destroyMissile(&context->enemy_missiles, &context->enemy_missiles_size, i);
@@ -167,14 +176,18 @@ static void processCollisions(GameContext *context){
 			if(context->aircraft.hp <= 0){
 				context->aircraft.hp = 0;
 				context->active = 0;
-				return;
+				return 0;
 			}
 			i--;
 			break;
 		}
-	}	
-	
-	for(i = 0; i < context->bonuses_size; ++i){
+	}
+
+	return 1;
+}
+
+static int processCollisionsBonuses(GameContext *context){
+	for(int i = 0; i < context->bonuses_size; ++i){
 		if(isOverlap(&context->bonuses[i].position, context->bonuses[i].surface, &context->aircraft.position, context->aircraft.surface)){
 			switch(context->bonuses[i].type){
 				case BONUS_HEALTH:
@@ -195,13 +208,13 @@ static void processCollisions(GameContext *context){
 					break;
 				case BONUS_BOMB:
 					context->score += context->enemies_size;
-					while(context->enemies_size > 0){
-						destroyAircraft(&context->enemies, &context->enemies_size, 0);
-					}
+					destroyAllAircrafts(&context->enemies, &context->enemies_size);
 					break;
 			}
 			destroyBonus(&context->bonuses, &context->bonuses_size, i);
 			i--;
 		}
 	}
+
+	return 1;
 }
