@@ -56,7 +56,7 @@ void clearAircraftContext(){
 	SDL_FreeSurface(enemy_surface);
 }
 
-void moveAircraft(struct GameContext *context){
+void moveAircraft(GameContext *context){
 	if(context->keysstate[SDLK_UP])
 		context->aircraft.position.y += context->aircraft.speed_y;
 	if(context->keysstate[SDLK_DOWN])
