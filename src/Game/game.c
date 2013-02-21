@@ -1,10 +1,9 @@
 #include "sdl_wrapper.h"
 #include "context.h"
 
-//60 images par secondes
-#define TICK_INTERVAL 15
+#define TICK_INTERVAL 15 // 60 FPS
 
-static Uint32 next_time;
+static Uint32 next_synchronisation;
 
 static void displayGameOver();
 static void synchronize();
@@ -18,13 +17,12 @@ int play(){
     	return 0;
     }
     
-	next_time = SDL_GetTicks() + TICK_INTERVAL;
-
     while(context.active){		
     	if(SDL_PollEvent(&event) == 1 && event.type == SDL_QUIT){
     		closeContext(&context);
 			return 0;	
 		}
+
         processEvent(&context);
         displaySurfaces(&context);
         synchronize();
@@ -61,12 +59,12 @@ static void synchronize(){
 	Uint32 now = SDL_GetTicks();
 	Uint32 offset = 0;
 
-	if(next_time > now){
-		offset = next_time - now;
+	if(next_synchronisation > now){
+		offset = next_synchronisation - now;
 	}
 
 	SDL_Delay(offset);
-	next_time += TICK_INTERVAL;
+	next_synchronisation += TICK_INTERVAL;
 }
 
 static void displaySurfaces(GameContext *context){
