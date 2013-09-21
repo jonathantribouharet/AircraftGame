@@ -1,5 +1,6 @@
 Aircraft Game
 =============
+[![Build Status](https://travis-ci.org/jonathantribouharet/AircraftGame.png?branch=master)](https://travis-ci.org/jonathantribouharet/AircraftGame)
 
 Very small aircraft game written in C
 

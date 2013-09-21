@@ -8,15 +8,9 @@ find_package(SDL_ttf REQUIRED)
 if(APPLE)
 	message(STATUS "Mac OS detected")
 
-	include_directories("/Library/Frameworks/SDL.framework/headers"
-						"/Library/Frameworks/SDL_image.framework/headers"
-					    "/Library/Frameworks/SDL_ttf.framework/headers")
-
 	file(GLOB_RECURSE sources *.c *.m)
 else()
 	message(STATUS "Linux detected")
-
-	include_directories("/usr/include/SDL")
 
 	file(GLOB_RECURSE sources *.c)
 endif()
@@ -32,6 +26,10 @@ else()
 	set(CMAKE_C_FLAGS "-Wall -O3")
 	#set(CMAKE_C_FLAGS "-Wall -DDEBUG")
 endif()
+
+include_directories(${SDL_INCLUDE_DIR})
+include_directories(${SDLIMAGE_INCLUDE_DIR})
+include_directories(${SDLTTF_INCLUDE_DIR})
 
 include_directories(.)
 include_directories(Elements)
